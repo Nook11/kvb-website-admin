@@ -1,0 +1,343 @@
+/* --- 1. General Setup & Variables --- */
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap');
+
+:root {
+    --bs-primary: #005A9C; /* สีน้ำเงินหลัก */
+    --bs-primary-rgb: 0, 90, 156;
+    --bs-light: #f0f5f9; /* สีเทาอมฟ้าอ่อนสำหรับพื้นหลังสลับ */
+    --bs-dark: #212529; /* สีเทาเข้มสำหรับข้อความ */
+    --border-radius: 0.75rem;
+    --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+    --box-shadow-sm: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.08);
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+body {
+    font-family: 'Sarabun', sans-serif;
+    background-image: url('imges/blue gradient travel (Presentation (169)).png');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed; /* ทำให้พื้นหลังอยู่กับที่เมื่อ scroll */
+    
+    /* --- UPDATED: Text Color --- */
+    color: #f8f9fa; /* เปลี่ยนสีตัวอักษรพื้นฐานเป็นสีขาวอมเทาให้อ่านง่าย */
+}
+
+/* --- NEW: Black Gradient Overlay --- */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(10, 25, 47, 0.7); /* สีน้ำเงินเข้มโปร่งแสง 70% */
+    z-index: -1; /* ส่ง Overlay ไปไว้ข้างหลังสุด */
+}
+
+
+/* --- UPDATED: ทำให้ Section โปร่งใส --- */
+main > section, header {
+    padding: 5rem 0; 
+    background-color: transparent !important; /* ทำให้พื้นหลัง Section โปร่งใส */
+}
+/* ทำให้ Section ที่ 2, 4, 6... มีพื้นหลังโปร่งใส */
+main > section:nth-of-type(even) {
+    background-color: transparent !important; /* ทำให้พื้นหลัง Section โปร่งใส */
+}
+
+/* --- 2. Navbar --- */
+.navbar {
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+.navbar.scrolled {
+    background-color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.navbar-brand img {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.navbar-brand:hover img {
+    transform: rotate(-12deg) scale(1.15);
+}
+.nav-link {
+    position: relative;
+    padding-bottom: 0.5rem;
+    font-weight: 500;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 10%; width: 80%; height: 3px;
+    background-color: var(--bs-primary);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease-out;
+}
+.nav-link:hover::after, .nav-link.active::after {
+    transform: scaleX(1);
+}
+.navbar .btn {
+    transition: all 0.4s ease;
+}
+
+.navbar:not(.scrolled) .btn-primary {
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.8);
+    color: #ffffff;
+}
+
+
+.navbar:not(.scrolled) .btn-primary:hover {
+    background-color: #ffffff;
+    color: var(--bs-primary);
+    box-shadow: none;
+}
+.navbar.scrolled .btn-primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(var(--bs-primary-rgb), 0.5);
+}
+
+/* --- ปรับสีตัวอักษรปุ่มเบอร์โทรเป็นสีเทา --- */
+.navbar .nav-item .btn-primary {
+    color: #0080ff !important; /* !important ใช้เพื่อให้แสดงผลทับสไตล์เดิมของ Bootstrap */
+}
+
+/* ทำให้ตัวอักษรกลับเป็นสีขาวเมื่อ hover เพื่อให้อ่านง่ายขึ้น */
+.navbar .nav-item .btn-primary:hover {
+    color: #0080ff !important;
+}
+
+/* --- 3. Hero Section --- */
+.hero-section {
+    background-color: var(--bs-primary);
+    color: #ffffff;
+    padding: 10rem 0 8rem 0; /* รวม padding-top และ padding เดิมเข้าด้วยกัน */
+    overflow: hidden;
+}
+.hero-section .lead {
+    opacity: 0.9;
+}
+.hero-email-btn {
+    display: inline-block;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    color: #ffffff;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    transition: all 0.3s ease-out;
+    animation: fadeInUp 0.8s ease-out 0.5s;
+    animation-fill-mode: backwards;
+}
+.hero-email-btn:hover {
+    background-color: #ffffff;
+    color: var(--bs-primary);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+.hero-section h1 { animation-delay: 0.2s; }
+.hero-section p { animation-delay: 0.35s; }
+
+/* --- 4. Content Sections & Cards --- */
+main > section, header {
+    padding: 5rem 0;
+}
+main > section:nth-of-type(even) {
+    background-color: var(--bs-light);
+}
+.card {
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-sm);
+    border: 1px solid #e9ecef;
+    animation: fadeInUp 0.8s ease-out;
+    transition: all 0.3s ease;
+    overflow: hidden; /* NEW: สำคัญมากสำหรับเอฟเฟกต์ซูมรูปภาพ */
+}
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--box-shadow);
+    border-color: var(--bs-primary);
+}
+/* NEW GIMMICK: ทำให้รูปภาพในการ์ดซูมเข้าเมื่อ hover ที่การ์ด */
+.card .img-fluid {
+    transition: transform 0.4s ease;
+}
+.card:hover .img-fluid {
+    transform: scale(1.05);
+}
+
+/* --- 5. Specific Components --- */
+
+/* Image Slider */
+header .carousel-inner, header .carousel-item img {
+    border-radius: var(--border-radius);
+}
+header .carousel-item img {
+    max-height: 75vh;
+    object-fit: cover;
+}
+header .carousel-caption {
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%);
+    text-align: left;
+    bottom: 0; left: 0; right: 0; padding: 3rem 1.5rem 1.5rem;
+}
+
+/* Services Overview Section */
+.services-overview-section {
+    background-color: var(--bs-primary);
+    color: #ffffff;
+}
+.services-overview-section h2 { color: #ffffff; }
+.services-overview-section .text-muted { color: rgba(255, 255, 255, 0.75) !important; }
+.services-overview-section .btn-primary {
+    background-color: #ffffff; border-color: #ffffff; color: var(--bs-primary);
+}
+.services-overview-section .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.services-overview-section .btn-outline-primary {
+    border-color: #ffffff; color: #ffffff;
+}
+.services-overview-section .btn-outline-primary:hover {
+    background-color: #ffffff; color: var(--bs-primary);
+}
+
+/* --- Service Page Header --- */
+.service-header {
+    background-color: var(--bs-primary); /* กำหนดพื้นหลังเป็นสีน้ำเงินหลัก */
+    color: #ffffff;                      /* กำหนดให้ตัวอักษรเป็นสีขาว */
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    animation: fadeInUp 0.8s ease-out;     /* เพิ่ม Action ให้สวยงาม */
+}
+/* Horizontal Scroll Products */
+.horizontal-scroll-container {
+    display: flex; overflow-x: auto; white-space: nowrap; padding-bottom: 1rem;
+    -ms-overflow-style: none; scrollbar-width: none;
+}
+.horizontal-scroll-container::-webkit-scrollbar { display: none; }
+.partner-item {
+    flex: 0 0 auto; display: inline-block; padding: 0.75rem 1.5rem; margin-right: 0.75rem;
+    border: 1px solid #dee2e6; border-radius: 50px; text-decoration: none;
+    color: var(--bs-dark); font-weight: 500; transition: all 0.2s ease-in-out;
+}
+.partner-item:hover {
+    background-color: var(--bs-light); border-color: var(--bs-primary); color: var(--bs-primary);
+}
+.partner-item.active {
+    background-color: var(--bs-primary); border-color: var(--bs-primary); color: #ffffff;
+    font-weight: 700; box-shadow: var(--box-shadow-sm);
+}
+#productDetailCarousel .carousel-inner {
+    border-radius: var(--border-radius); background-color: #f8f9fa;
+}
+#productDetailCarousel .carousel-item img {
+    width: 100%; height: 400px; object-fit: contain; padding: 1rem;
+}
+
+/* Footer */
+footer {
+    background-color: var(--bs-dark); color: #dee2e6;
+    padding: 3rem 0; font-size: 0.9rem;
+}
+footer a { color: #dee2e6; text-decoration: none; transition: color 0.2s; }
+footer a:hover { color: #ffffff; }
+footer .bi-line { color: #06C755; }
+footer .bi-facebook { color: #1877F2; }
+
+/* --- 6. Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .hero-section { padding: 8rem 1rem 6rem 1rem; }
+    .hero-section h1 { font-size: 2.8rem; }
+    .hero-logo { width: 120px; }
+}
+@media (max-width: 576px) {
+    .hero-section { padding: 7rem 1rem 5rem 1rem; }
+    .hero-section h1 { font-size: 2.2rem; }
+    .hero-logo { width: 100px; }
+    .hero-email-btn { padding: 0.7rem 1.5rem; font-size: 0.9rem; }
+}
+
+/* ปรับสีของลูกศรเลื่อน (prev / next) */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: var(--bs-primary); /* ใช้สีน้ำเงินหลัก */
+    border-radius: 50%;
+    padding: 1rem;
+}
+
+/* ปรับสีจุดสไลด์ (indicators) */
+.carousel-indicators [data-bs-target] {
+    background-color: rgba(0, 90, 156, 0.3); /* สีพื้นจาง */
+}
+.carousel-indicators .active {
+    background-color: var(--bs-primary); /* สีหลักเมื่อ active */
+}
+/* --- ทำให้ Services Overview Section มีพื้นหลังสีน้ำเงิน --- */
+.services-overview-section {
+    background-color: var(--bs-primary) !important; /* !important เพื่อให้แสดงผลทับสไตล์โปร่งใสเดิม */
+}
+
+/* ปรับสีตัวอักษรใน Section นี้ให้เป็นสีขาวเพื่อให้อ่านง่าย */
+.services-overview-section h2 {
+    color: #ffffff;
+}
+.services-overview-section .text-muted {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* ปรับสไตล์ปุ่มใน Section นี้ให้ตัดกับพื้นหลังสีน้ำเงิน */
+.services-overview-section .btn-primary {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: var(--bs-primary);
+}
+.services-overview-section .btn-outline-primary {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+/* ปรับสไตล์ปุ่มตอน Hover */
+.services-overview-section .btn-primary:hover {
+    background-color: var(--bs-light); /* สีเทาอ่อน */
+    border-color: var(--bs-light);
+    color: var(--bs-primary);
+}
+.services-overview-section .btn-outline-primary:hover {
+    background-color: #ffffff;
+    color: var(--bs-primary);
+}
+
+/* --- ทำให้ Partners Section มีพื้นหลังสีขาว --- */
+.partners-section {
+    background-color: #ffffff !important; /* !important เพื่อให้แสดงผลทับสไตล์โปร่งใสเดิม */
+}
+/* --- เปลี่ยนสีตัวอักษรใน Partners Section --- */
+.partners-section h2 {
+    color: var(--bs-dark); 
+}
+
+.partners-section .text-muted {
+    color: #6c757d !important; 
+}
+.service-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    min-height: 400px;
+}
+
+
+.service-page-section .card:nth-of-type(1) {
+    animation-delay: 0.2s;
+}
+
+.service-page-section .card:nth-of-type(2) {
+    animation-delay: 0.3s;
+}
